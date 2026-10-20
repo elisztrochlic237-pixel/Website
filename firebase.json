@@ -1,0 +1,42 @@
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "/api/enquiry",
+        "function": {
+          "functionId": "submitEnquiry",
+          "region": "australia-southeast2"
+        }
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.html",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=300" },
+          { "key": "X-Content-Type-Options", "value": "nosniff" },
+          { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        ]
+      },
+      {
+        "source": "**/assets/**",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=3600" },
+          { "key": "X-Content-Type-Options", "value": "nosniff" }
+        ]
+      }
+    ]
+  },
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs22"
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}
